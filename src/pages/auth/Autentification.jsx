@@ -2,6 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+import Landing from './Landing'
 import ActivationEmail from '../auth/activationEmail/ActivationEmail'
 import Login from '../auth/login/Login'
 import ForgotPassword from '../auth/forgotPassword/ForgotPassword'
@@ -42,6 +43,7 @@ function Autentification () {
           element={isAdmin ? <EditUser /> : <NotFound />}
           exact
         />
+        <Route path= '/landing' element={<Landing/>} exact/>
       </Routes>
     </Router>
   )

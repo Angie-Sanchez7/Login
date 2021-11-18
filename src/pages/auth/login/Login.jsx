@@ -42,7 +42,7 @@ function Login () {
       )
       showSuccessMsg(success)
       dispatch(dispatchLogin())
-      navigate('/')
+      navigate('/landing')
     } catch (err) {
       showErrMsg(err.response.data.error)
       err.response.data.error &&
