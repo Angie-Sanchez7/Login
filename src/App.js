@@ -1,4 +1,3 @@
-import "./App.css";
 import Autentification from './pages/auth/Autentification'
 
 function App() {

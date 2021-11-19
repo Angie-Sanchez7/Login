@@ -154,7 +154,7 @@ const controllerUser = {
             const url = `${CLIENT_URL}/user/reset/${access_token}`
 
             sendMail(email, url, "Reset your password")
-            res.json({msg: "Re-send the password, please check your email."})
+            res.json({msg: "Por favor revisa tu correo electrónico"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -168,7 +168,7 @@ const controllerUser = {
                 passwordHash: passwordHash
             })
 
-            res.json({msg: "Password successfully changed!"})
+            res.json({msg: "La contraseña fue cambiada con exito!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
