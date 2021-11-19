@@ -5,8 +5,9 @@ import { showErrMsg, showSuccessMsg } from '../../../utils/notification'
 import { dispatchLogin } from '../../../redux/actions/authAction'
 import { useDispatch } from 'react-redux'
 import { Input } from '../../../componentes/input/Input'
-import './Login.css'
 import logo from '../../../assets/logos/programateLogo.png'
+import './Login.css'
+
 
 const initialState = {
   email: '',
@@ -51,11 +52,11 @@ function Login () {
   }
 
   return (
-    <div className='container-login'>
-      <div className='login_page'>
-        <img className='logo' src={logo} alt='logo' />
+    <div className='container-login-main'>
+      <div className='container-login-page'>
+        <img className='logo' src={logo} alt='logo-programate' />
         <form className='form' onSubmit={handleSubmit}>
-          <div className='login-form-content'>
+          <div className='container-login-form-content'>
             <Input
               label='Correo'
               placeholder='Luis@hotmail.com'

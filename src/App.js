@@ -1,4 +1,4 @@
-import Autentification from './pages/auth/Autentification'
+import Autentification from './componentes/autentication/Autentification'
 
 function App() {
   return (

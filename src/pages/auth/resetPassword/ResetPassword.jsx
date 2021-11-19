@@ -78,7 +78,7 @@ function ResetPassword () {
             onChange={handleChangeInput}
           />
           <button className='button-resetPassword' onClick={handleResetPass}>
-            Reset Password
+            Cambiar contraseña
           </button>
         </div>
       </div>

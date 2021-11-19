@@ -11,17 +11,17 @@ const controllerUser = {
             const {name, email, password} = req.body
 
             if(!name || !email || !password)
-                return res.status(400).json({msg: "Please fill in all fields."})
+                return res.status(400).json({msg: "Por favor llenar todos los campos"})
 
             if(!validateEmail(email))
-                return res.status(400).json({msg: "Invalid emails."})
+                return res.status(400).json({msg: "El correo electrónico es incorrecto"})
 
             const user = await User.findOne({email})
 
-            if(user) return res.status(400).json({msg: "This email already exists."})
+            if(user) return res.status(400).json({msg: "Este correo electrónico ya existe"})
 
             if(password.length < 6)
-                return res.status(400).json({msg: "Password must be at least 6 characters."})
+                return res.status(400).json({msg: "La contraseña debe tener al menos 6 caracteres"})
 
             const passwordHash = await bcrypt.hash(password, 12)
 
@@ -32,10 +32,10 @@ const controllerUser = {
             const activation_token = createActivationToken(newUser)
 
             const url = `${CLIENT_URL}/user/activate/${activation_token}`
-            sendMail(email, url, "Verify your email address")
+            sendMail(email, url, "Verifica tu correo electrónico")
 
 
-            res.json({msg: "Register Success! Please activate your email to start."})
+            res.json({msg: "Registro exitoso! Por favor activa tu correo electrónico para empezar"})
         
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -46,17 +46,17 @@ const controllerUser = {
             const {name, email, password, role} = req.body
 
             if(!name || !email || !password || !role)
-                return res.status(400).json({msg: "Please fill in all fields."})
+                return res.status(400).json({msg: "Por favor llenar todos los campos"})
 
             if(!validateEmail(email))
-                return res.status(400).json({msg: "Invalid emails."})
+                return res.status(400).json({msg: "El correo electrónico es incorrecto"})
 
             const user = await User.findOne({email})
 
-            if(user) return res.status(400).json({msg: "This email already exists."})
+            if(user) return res.status(400).json({msg: "Este correo electrónico ya existe"})
 
             if(password.length < 6)
-                return res.status(400).json({msg: "Password must be at least 6 characters."})
+                return res.status(400).json({msg: "La contraseña debe tener al menos 6 caracteres"})
 
             const passwordHash = await bcrypt.hash(password, 12)
 
@@ -66,7 +66,7 @@ const controllerUser = {
 
             console.log(newUser)
             await newUser.save()
-            res.json({msg: "User has been create!"})
+            res.json({msg: "El usuario ha sido creado"})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -80,7 +80,7 @@ const controllerUser = {
             const {name, email, passwordHash} = user
 
             const check = await User.findOne({email})
-            if(check) return res.status(400).json({msg:"This email already exists."})
+            if(check) return res.status(400).json({msg:"El correo electrónico es incorrecto"})
 
             const newUser = new User({
                 name, email, passwordHash
@@ -88,7 +88,7 @@ const controllerUser = {
 
             await newUser.save()
 
-            res.json({msg: "Account has been activated!"})
+            res.json({msg: "La cuenta ha sido activada"})
 
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -104,25 +104,19 @@ const controllerUser = {
                 user === null ? false : await bcrypt.compare(password, user.passwordHash)
                 if (!isMatch) {
                     res.status(401).json({
-                        error: 'Invalid password or user'
+                        error: 'La contraseña o el usuario son incorrectos'
                     })
                 }
             
             const refresh_token = createRefreshToken({id: user._id})
             
-            // res.cookie('session_id', '12345')
-            // res.cookie('refreshtoken', refresh_token, {
-            //     httpOnly: false,
-            //     path: '/api/refresh_token',
-            //     maxAge: 7*24*60*60*1000 // 7 days
-            // })
             res.send({
                 email: user.email,
                 refresh_token,
                 msg: "Login success!"
                 
             })
-            // res.json({msg: "Login success!"})
+         
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }
@@ -148,12 +142,12 @@ const controllerUser = {
         try {
             const {email} = req.body
             const user = await User.findOne({email})
-            if(!user) return res.status(400).json({msg: "This email does not exist."})
+            if(!user) return res.status(400).json({msg: "Este correo electrónico no existe"})
 
             const access_token = createAccessToken({id: user._id})
             const url = `${CLIENT_URL}/user/reset/${access_token}`
 
-            sendMail(email, url, "Reset your password")
+            sendMail(email, url, "Se cambio tu contraseña")
             res.json({msg: "Por favor revisa tu correo electrónico"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
